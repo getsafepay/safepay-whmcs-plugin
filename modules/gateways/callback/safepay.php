@@ -100,7 +100,7 @@ function verifyTransaction($tracker = "track_", $amount, $environment)
 	if(empty($result_array->status->errors)) {
 		$state = $result_array->data->state;
 		$amt = $result_array->data->amount;
-		if($state === "TRACKER_ENDED" && $amount === $amt ) {
+		if($state === "TRACKER_ENDED" && floatval($amount) == $amt ) {
 			return true;
 		} else {
 			return false;

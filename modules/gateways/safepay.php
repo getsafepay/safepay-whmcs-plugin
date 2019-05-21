@@ -85,7 +85,7 @@ function safepay_link($params)
         'amount'=>$amount
         )
     );
-    $callbackUrl = $params['systemurl'] . '/modules/gateways/callback/safepay.php'. $queryString;
+    $callbackUrl = $params['systemurl'] . '/modules/gateways/callback/safepay.php?'. $queryString;
 
     $code = '
     	<script type="text/javascript" src="https://storage.googleapis.com/safepayobjects/api/safepay-checkout.min.js"></script>
