@@ -117,7 +117,7 @@ function safepay_link($params)
         			var redirectUrl = "'.$callbackUrl.'&tracker=" + data.tracker;
                     setTimeout(function () {
                         window.location.assign(redirectUrl);
-                    }, 1000);
+                    }, 100);
         		}
         	}
 
