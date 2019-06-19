@@ -98,17 +98,17 @@ function safepay_link($params)
         <script>
         	var button_created = false;
         	var safepayProps = {
-        		env: '.$environment.',
-        		amount: '.$amount.',
-        		currency: '.$currency.',
+        		env: "'.$environment.'",
+        		amount: "'.$amount.'",
+        		currency: "'.$currency.'",
         		client: {
-        			sandbox: '.$params['sandboxApiKey'].',
-        			production: '.$params['productionApiKey'].'
+        			sandbox: "'.$params['sandboxApiKey'].'",
+        			production: "'.$params['productionApiKey'].'"
         		},
         		payment: function(data, actions) {
         			return actions.payment.create({
         				amount: '.$amount.',
-        				currency: '.$currency.'
+        				currency: "'.$currency.'"
         			})
         		},
         		onCheckout: function(data, actions) {
