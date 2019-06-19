@@ -28,11 +28,13 @@ $amount = filter_input(INPUT_GET, "amount");
 
 if ($gatewayParams['testMode'] == 'on') {
     $environment = "sandbox";
+    $apiKey = $gatewayParams['sandboxApiKey'];
 } else {
     $environment = "production";
+    $apiKey = $gatewayParams['productionApiKey'];
 }
 
-$success = verifyTransaction($tracker, $amount, $environment);
+$success = verifyTransaction($tracker, $apiKey, $environment);
 
 if ($success === true) {
 
@@ -68,12 +70,14 @@ if ($success === true) {
 } else {
     # Unsuccessful
     # Save to Gateway Log: name, data array, status
+    echo "unsuccessful" . "\n";
+    die();
     logTransaction($gatewayParams["name"], $_GET, "Unsuccessful-".$error . ". Please check Safepay dashboard for Payment id: ".$_GET['tracker']);
 }
 
 header("Location: ".$gatewayParams['systemurl']."/viewinvoice.php?id=" . $invoiceid);
 
-function verifyTransaction($tracker = "track_", $amount, $environment)
+function verifyTransaction($tracker = "track_", $apiKey, $environment)
 {
 
 	if($environment == 'sandbox') {
@@ -99,8 +103,8 @@ function verifyTransaction($tracker = "track_", $amount, $environment)
 	$result_array = json_decode($result);
 	if(empty($result_array->status->errors)) {
 		$state = $result_array->data->state;
-		$amt = $result_array->data->amount;
-		if($state === "TRACKER_ENDED" && floatval($amount) == $amt ) {
+		$client = $result_array->data->client;
+		if($state === "TRACKER_ENDED" && $client === $apiKey ) {
 			return true;
 		} else {
 			return false;
