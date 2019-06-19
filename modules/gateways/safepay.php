@@ -107,8 +107,10 @@ function safepay_link($params)
         		},
         		payment: function(data, actions) {
         			return actions.payment.create({
-        				amount: '.$amount.',
-        				currency: "'.$currency.'"
+                        transaction: {
+                            amount: '.$amount.',
+                            currency: "'.$currency.'"
+                        }
         			})
         		},
         		onCheckout: function(data, actions) {
