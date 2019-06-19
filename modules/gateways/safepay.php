@@ -31,7 +31,7 @@ function safepay_config()
             'Type' => 'System',
             'Value' => 'Safepay (Debit/Credit Cards)',
         ),
-        'testMode' => (
+        'testMode' => array(
         	'FriendlyName' => 'Test Mode',
             'Type' => 'yesno',
             'Description' => 'Tick to enable test mode',
@@ -74,8 +74,8 @@ function safepay_link($params)
     ///Transaction_reference
     $transaction = $invoiceId . '_' .time();
 
-    if (!in_array(strtoupper($currency), [ 'PKR', 'USD', 'AUD', 'GBP' ])) {
-        return ("<b style='color:red;margin:2px;padding:2px;border:1px dotted;display: block;border-radius: 10px;font-size: 13px;'>Sorry, this version of the Safepay WHMCS plugin only accepts PKR, USD, AUD and GBP payments. <i>$currency</i> not yet supported.</b>");
+    if (!in_array(strtoupper($currency), [ 'PKR', 'USD' ])) {
+        return ("<b style='color:red;margin:2px;padding:2px;border:1px dotted;display: block;border-radius: 10px;font-size: 13px;'>Sorry, this version of the Safepay WHMCS plugin only accepts PKR, USD and payments. <i>".$currency."</i> not yet supported.</b>");
     }
 
     $queryString = http_build_query(
